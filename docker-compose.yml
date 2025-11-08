@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  db:
+    image: mariadb:10.6
+    container_name: moodle-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ${MOODLE_DB_NAME}
+      MYSQL_USER: ${MOODLE_DB_USER}
+      MYSQL_PASSWORD: ${MOODLE_DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  moodle:
+    build: .
+    container_name: moodle-web
+    restart: always
+    ports:
+      - "${MOODLE_PORT}:80"
+    environment:
+      MOODLE_DB_HOST: ${MOODLE_DB_HOST}
+      MOODLE_DB_USER: ${MOODLE_DB_USER}
+      MOODLE_DB_PASSWORD: ${MOODLE_DB_PASSWORD}
+      MOODLE_DB_NAME: ${MOODLE_DB_NAME}
+      MOODLE_PORT: ${MOODLE_PORT}
+    volumes:
+      - moodledata:/var/www/moodledata
+    depends_on:
+      - db
+
+  cron:
+    image: php:8.3-apache
+    container_name: moodle-cron
+    restart: always
+    volumes:
+      - moodledata:/var/www/moodledata
+    entrypoint: ["bash", "-c", "while true; do php /var/www/html/admin/cli/cron.php; sleep 60; done"]
+    depends_on:
+      - moodle
+
+volumes:
+  db_data:
+  moodledata:
+

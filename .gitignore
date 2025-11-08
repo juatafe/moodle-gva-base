@@ -1,0 +1,25 @@
+# 📦 Carpetes grans o generades
+moodle/
+moodledata/
+db_data/
+vendor/
+node_modules/
+
+# 🗃️ Fitxers temporals
+*.log
+*.tmp
+*.swp
+*.bak
+
+# ⚙️ Fitxers de sistema o d'editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 🧱 Fitxers de build Docker
+*.tar
+*.gz
+
+# ❌ Fitxers secrets (si mai els afegeixes)
+.env
