@@ -22,4 +22,4 @@ Thumbs.db
 *.gz
 
 # ❌ Fitxers secrets (si mai els afegeixes)
-.env
+#.env
