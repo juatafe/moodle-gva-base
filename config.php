@@ -22,6 +22,11 @@ $CFG->admin = 'admin';
 
 // Evitem el mode instal·lació
 $CFG->skiplangupgrade = true;
+// --- Configuració addicional GVA ---
+$CFG->lang = 'ca_valencia';
+$CFG->langlist = 'ca_valencia,es,en';
+$CFG->skiplangupgrade = false;  // permet actualitzar paquets d'idioma
+$CFG->directorypermissions = 0777;
 
 require_once(__DIR__ . '/lib/setup.php');
 

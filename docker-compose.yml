@@ -26,7 +26,8 @@ services:
       MOODLE_DB_NAME: ${MOODLE_DB_NAME}
       MOODLE_PORT: ${MOODLE_PORT}
     volumes:
-      - moodledata:/var/www/moodledata
+     # - ./moodle:/var/www/html
+     - moodledata:/var/www/moodledata
     depends_on:
       - db
 
