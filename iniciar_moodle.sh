@@ -32,6 +32,18 @@ else
   echo "⚠️ No s’ha trobat moodle_base.sql — es crearà una base de dades buida."
 fi
 
+# 🗣️ Instal·lar idiomes i netejar cache
+echo "🌐 Instal·lant idiomes (ca_valencia, es, en)..."
+docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/langinstall.php ca_valencia es en || true"
+docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/purge_caches.php || true"
+
+
+# 🧩 Activar resultats, competències i compleció si encara no ho estan
+echo "🧩 Activant resultats, competències i compleció..."
+docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/cfg.php --name=enableoutcomes --set=1"
+docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/cfg.php --name=enablecompletion --set=1"
+docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/cfg.php --name=competencyframeworks --set=1"
+
 # 🔁 Reiniciar Moodle perquè veja els canvis
 docker restart moodle-web >/dev/null 2>&1
 

@@ -27,7 +27,7 @@ services:
       MOODLE_PORT: ${MOODLE_PORT}
     volumes:
      # - ./moodle:/var/www/html
-     - ./theme/moove:/var/www/html/theme/moove
+     #- ./theme/moove/scss:/var/www/html/theme/moove/scss
      - moodledata:/var/www/moodledata
     depends_on:
       - db
