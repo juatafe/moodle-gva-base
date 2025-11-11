@@ -32,10 +32,27 @@ else
   echo "⚠️ No s’ha trobat moodle_base.sql — es crearà una base de dades buida."
 fi
 
-# 🗣️ Instal·lar idiomes i netejar cache
-echo "🌐 Instal·lant idiomes (ca_valencia, es, en)..."
-docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/langinstall.php ca_valencia es en || true"
-docker exec -it moodle-web bash -c "php /var/www/html/admin/cli/purge_caches.php || true"
+# 🌐 Instal·lar idioma català si no existeix
+echo "🌐 Comprovant i instal·lant idioma català..."
+docker exec -i moodle-web bash -lc "
+if [ ! -d /var/www/html/lang/ca ]; then
+  echo '🗣️ Descarregant paquet d idioma ca...'
+  mkdir -p /var/www/html/lang/ca
+  cd /var/www/html/lang
+  wget -q https://download.moodle.org/langpack/4.5/ca.zip -O ca.zip
+  unzip -o ca.zip -d /var/www/html/lang/ >/dev/null
+  rm -f ca.zip
+  echo '✅ Idioma ca descarregat i instal·lat.'
+else
+  echo '✅ L idioma ca ja està present.'
+fi
+"
+
+# 🔧 Fixar idioma per defecte i netejar memòria cau
+docker exec -i moodle-web bash -lc "php /var/www/html/admin/cli/cfg.php --name=lang --set=ca"
+docker exec -i moodle-web bash -lc "php /var/www/html/admin/cli/purge_caches.php || true"
+
+
 
 
 # 🧩 Activar resultats, competències i compleció si encara no ho estan
