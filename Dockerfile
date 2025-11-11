@@ -30,6 +30,7 @@ RUN git clone -b MOODLE_405_STABLE https://github.com/moodle/moodle.git /var/www
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
+
 # --- Instal·lar tema Moove ---
 RUN cd /var/www/html/theme && \
     git clone https://github.com/willianmano/moodle-theme_moove.git moove && \
@@ -46,13 +47,10 @@ $plugin->dependencies = [
 ];
 EOF
 
-# --- Garantir que el tema Boost existeix (per compatibilitat amb Moove) ---
-RUN cd /var/www/html/theme && \
-    rm -rf boost && \
-    git clone -b MOODLE_405_STABLE https://github.com/moodle/moodle.git tmp && \
-    cp -r tmp/theme/boost . && \
-    rm -rf tmp && \
-    chown -R www-data:www-data /var/www/html/theme/boost
+# Copiem els fitxers personalitzats del tema
+COPY theme/moove/scss/aules-gva.scss /var/www/html/theme/moove/scss/aules-gva.scss
+COPY theme/moove/pix/Aules.png /var/www/html/theme/moove/pix/Aules.png
+
 
 # --- Copiar config.php base ---
 COPY config.php /var/www/html/config.php
@@ -63,18 +61,32 @@ RUN mkdir -p /var/www/moodledata && \
     chown -R www-data:www-data /var/www/moodledata && \
     chmod -R 770 /var/www/moodledata
 
-# --- Idiomes i neteja inicial ---
-RUN cd /var/www/html && \
-    php admin/cli/langinstall.php ca_valencia es en || true && \
-    php admin/cli/purge_caches.php || true && \
-    chown -R www-data:www-data /var/www/html /var/www/moodledata
+# --- Forçar el tema Moove, SCSS Aules i activar Resultats d'Aprenentatge ---
+RUN echo "\
+\$CFG->theme = 'moove'; \
+\$CFG->themedesignermode = 1; \
+\$CFG->theme_boost_scsspreset = 'aules-gva.scss'; \
+\$CFG->enablecompletion = 1; \
+\$CFG->competencyframeworks = 1; \
+\$CFG->enableoutcomes = 1;" >> /var/www/html/config.php
 
-# --- Upgrade automàtic i neteja ---
-RUN sudo -u www-data php /var/www/html/admin/cli/upgrade.php --non-interactive --allow-unstable || true && \
-    sudo -u www-data php /var/www/html/admin/cli/purge_caches.php || true
+
+# --- Idiomes i neteja inicial ---
+#RUN cd /var/www/html && \
+#    php admin/cli/langinstall.php ca_valencia es en || true && \
+#    php admin/cli/purge_caches.php || true && \
+#    chown -R www-data:www-data /var/www/html /var/www/moodledata
+
+
+# --- (Opcional) l'upgrade s'executarà després de la instal·lació inicial ---
+# RUN sudo -u www-data php /var/www/html/admin/cli/upgrade.php --non-interactive --allow-unstable || true
+RUN sudo -u www-data php /var/www/html/admin/cli/purge_caches.php || true
+
 
 # --- Eliminar plugin 'auleslook' si està registrat però no té fitxers ---
 RUN sudo -u www-data php /var/www/html/admin/cli/uninstall.php --name=local_auleslook --non-interactive || true
+
+
 
 EXPOSE 80
 CMD ["apache2-foreground"]

@@ -1,0 +1,356 @@
+/* ==========================================================================
+   AULES GVA - Tema institucional basat en Moove
+   Versió fidel al disseny de https://aules.edu.gva.es/
+   ========================================================================== */
+
+/* === Colors corporatius === */
+$primary: #007c91;
+$secondary: #f3f8fb;
+$accent: #004b62;
+$body-bg: #ffffff;
+$body-color: #333;
+$link-color: $primary;
+$link-hover-color: darken($primary, 10%);
+
+/* === Tipografia === */
+$font-family-base: 'Roboto', 'Open Sans', sans-serif;
+$headings-font-weight: 600;
+$line-height-base: 1.6;
+
+/* ========================================================================== */
+/* CAPÇALERA INSTITUCIONAL SUPERIOR */
+/* ========================================================================== */
+#page {
+  margin-top: 70px;
+}
+
+.aules-header {
+  background-color: #ffffff;
+  border-bottom: 3px solid $primary;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.aules-header .aules-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aules-header img {
+  height: 45px;
+}
+
+.aules-header h1 {
+  font-size: 1.4rem;
+  color: $accent;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .aules-header h1 {
+    font-size: 1rem;
+  }
+  .aules-header img {
+    height: 35px;
+  }
+}
+
+/* ========================================================================== */
+/* LOGIN PAGE */
+/* ========================================================================== */
+#page-login-index {
+  background: linear-gradient(135deg, #a7e2f7 0%, #74c9e3 100%) !important;
+  color: #333;
+}
+
+#page-login-index .card {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  background-color: #ffffff;
+}
+
+#page-login-index .btn-primary {
+  background-color: $primary !important;
+  border: none !important;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+#page-login-index .btn-primary:hover {
+  background-color: darken($primary, 5%) !important;
+}
+
+/* ========================================================================== */
+/* BOTONS I TARGETES */
+/* ========================================================================== */
+.btn-primary {
+  background-color: $primary !important;
+  border: none !important;
+  border-radius: 5px !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: darken($primary, 5%) !important;
+    transform: translateY(-1px);
+  }
+}
+
+.dashboard-card,
+.coursebox {
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dashboard-card .progress {
+  background-color: #e0f7fa !important;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.dashboard-card .progress-bar {
+  background-color: $primary !important;
+}
+
+/* ========================================================================== */
+/* TITULARS I SECCIONS */
+/* ========================================================================== */
+h1, h2, h3, h4 {
+  color: $primary;
+  font-family: $font-family-base;
+}
+
+h2.sectionname {
+  border-left: 4px solid $primary;
+  padding-left: 0.5rem;
+  font-weight: 600;
+}
+
+/* ========================================================================== */
+/* BREADCRUMB */
+/* ========================================================================== */
+.breadcrumb {
+  background-color: transparent !important;
+  font-size: 0.9rem;
+  a {
+    color: $primary !important;
+  }
+}
+
+
+/* ========================================================================== */
+/* PEU INSTITUCIONAL NET I FIDEL A AULES GVA */
+/* ========================================================================== */
+
+/* Eliminar completament franja taronja i negra de Conecti.me */
+.footer-bottom,
+.footer-dark,
+.themebrand,
+.themecredit,
+div[role="contentinfo"] .footer-content,
+#page-footer .footer-main,
+#page-footer .footer-links,
+#page-footer .partners,
+#page-footer .contact,
+#page-footer .social {
+  display: none !important;
+}
+
+/* Redefinir peu de pàgina net */
+footer#page-footer {
+  background-color: #ffffff !important;
+  border-top: 2px solid #e0e0e0 !important;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #333;
+  padding: 1.5rem 1rem 2rem !important;
+  line-height: 1.5;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
+}
+
+/* Text principal */
+footer#page-footer:before {
+  content: "© 2025 Generalitat Valenciana · Conselleria d’Educació, Cultura, Universitats i Ocupació";
+  display: block;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+/* Enllaços legals */
+footer#page-footer:after {
+  content: "Avís legal | Política de privacitat | Política de cookies | Contacte | Accessibilitat";
+  display: block;
+  color: #555;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+
+
+
+
+
+/* Ocultar secció "Competències" de tots els formularis d’activitats */
+fieldset#id_competencies,
+#id_competencies_header,
+.fitem[id^="fgroup_id_competencies"],
+[data-region="competencies"],
+#fgroup_id_competencies {
+    display: none !important;
+}
+
+/* ========================================================================== */
+/* ELEMENTS FLOTTANTS */
+/* ========================================================================== */
+button[data-action='toggle-accessibility'],
+button#back-to-top {
+  background-color: lighten($primary, 35%) !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  &:hover {
+    background-color: $primary !important;
+    color: white !important;
+  }
+}
+
+/* === Elimina completament la franja taronja de Conecti.me === */
+/* === Oculta qualsevol franja "Developed by conecti.me" en temes Moove/Aules === */
+.footer-bottom,
+.footerpoweredby,
+.madeby,
+.footer-info,
+footer .madeby,
+footer .footerpoweredby {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Evita espai buit al final de la pàgina */
+#page-wrapper {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+/* === Elimina el botó "Contacteu amb el suport del lloc" del footer === */
+footer#page-footer .support-link,
+footer#page-footer .supportemail,
+footer#page-footer .support-contact,
+footer#page-footer a[href*="contactsitesupport"],
+footer#page-footer a[href*="contactsupport.php"],
+footer#page-footer .btn.btn-primary {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* ==========================================================================
+   PEU INSTITUCIONAL AULES GVA - FINAL ESTABLE
+   ========================================================================== */
+
+/* Oculta elements sobrants */
+.footer-social,
+.footer-links,
+.footer-contact,
+.footer-info,
+.footer-columns,
+.footer-bottom,
+.themebrand,
+.themecredit,
+footer#page-footer .logininfo,
+footer#page-footer .support-link,
+footer#page-footer .supportemail,
+footer#page-footer .btn,
+footer#page-footer a[href*="follow"],
+footer#page-footer a[href*="twitter"],
+footer#page-footer a[href*="facebook"],
+footer#page-footer a[href*="linkedin"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Estil bàsic del footer */
+footer#page-footer {
+  background-color: #f8f9fa !important;   /* gris suau */
+  border-top: 2px solid #333 !important;
+  color: #333;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  padding: 1.5rem 1rem 3.5rem !important;
+  position: relative;
+}
+
+/* Text institucional */
+footer#page-footer .institutional-text {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+footer#page-footer .legal-text {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* Logos institucionals */
+footer#page-footer .footer-logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 1.2rem auto 0 auto;
+}
+
+footer#page-footer .footer-logos img {
+  height: 45px;
+  width: auto;
+}
+
+/* Responsive: logos centrats en mòbil */
+@media (max-width: 768px) {
+  footer#page-footer .footer-logos {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+
+
+/* ========================================================================== */
+/* RESPONSIVE */
+/* ========================================================================== */
+@media (max-width: 768px) {
+  footer#page-footer {
+    font-size: 0.75rem;
+    padding: 1.5rem 1rem 3rem;
+  }
+  .aules-header {
+    height: 60px;
+  }
+}
+

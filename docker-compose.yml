@@ -27,12 +27,13 @@ services:
       MOODLE_PORT: ${MOODLE_PORT}
     volumes:
      # - ./moodle:/var/www/html
+     - ./theme/moove:/var/www/html/theme/moove
      - moodledata:/var/www/moodledata
     depends_on:
       - db
 
   cron:
-    image: php:8.3-apache
+    build: .
     container_name: moodle-cron
     restart: always
     volumes:
@@ -40,6 +41,7 @@ services:
     entrypoint: ["bash", "-c", "while true; do php /var/www/html/admin/cli/cron.php; sleep 60; done"]
     depends_on:
       - moodle
+      - db
 
 volumes:
   db_data:
